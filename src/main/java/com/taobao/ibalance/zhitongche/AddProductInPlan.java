@@ -1,4 +1,4 @@
-package com.taobao.ibalance;
+package com.taobao.ibalance.zhitongche;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,63 +7,29 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Selenium2Example {
+import com.taobao.ibalance.util.GetDriver;
+import com.taobao.ibalance.util.Login;
+import com.taobao.ibalance.util.ThreadSleep;
+
+public class AddProductInPlan {
 
 	public static void main(String[] args) {
 
-		// DesiredCapabilities dcaps = new DesiredCapabilities();
-		// dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-		// "/Users/gubin/project/workspace/seleniumProject/MySel20Proj/dirver/phantomjs-2.1.1-macosx/bin/phantomjs");
-		// WebDriver driver = new PhantomJSDriver(dcaps);
-
-		System.setProperty("webdriver.chrome.driver",
-				"/Users/gubin/Downloads/selenium/chromedriver");
-		// ChromeOptions chromeOptions = new ChromeOptions();
-		// chromeOptions.addArguments(Arrays.asList("--disable-logging"));
-		WebDriver driver = new ChromeDriver(new ChromeDriverService.Builder().withSilent(true).build());
-		driver.manage().window().maximize();
-		driver.manage().deleteAllCookies();
-
-		driver.get("https://login.taobao.com/member/login.jhtml");
-		sleep(2000);
-
-		WebElement element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
-			public WebElement apply(WebDriver d) {
-				return d.findElement(By.id("J_Quick2Static"));
-			}
-		});
-		element.click();
-
-		element = new WebDriverWait(driver, 5).until(new ExpectedCondition<WebElement>() {
-			public WebElement apply(WebDriver d) {
-				return d.findElement(By.name("TPL_username"));
-			}
-		});
-		element.clear();
-		element.sendKeys("guraul");
-
-		element = driver.findElement(By.name("TPL_password"));
-		element.clear();
-		element.sendKeys("");
-		sleep(2000);
-
-		element = driver.findElement(By.id("J_SubmitStatic"));
-		element.submit();
+		WebDriver driver = GetDriver.getChromeDriver();
+		Login.loginTaobao(driver);
 
 		driver.navigate().to("http://zhitongche.taobao.com");
 		String oriWin = driver.getWindowHandle();
-		sleep(2000);
+		ThreadSleep.sleep(2000);
 
 		driver.switchTo().frame("login_iframe");
-		sleep(2000);
-		element = driver.findElement(By.id("btn"));
+		ThreadSleep.sleep(2000);
+		WebElement element = driver.findElement(By.id("btn"));
 		element.click();
-		sleep(2000);
+		ThreadSleep.sleep(2000);
 
 		Set<String> handles = driver.getWindowHandles();
 		for (String handle : handles) {
@@ -88,19 +54,20 @@ public class Selenium2Example {
 			}
 		}
 
-		for (WebElement we : element.findElements(By.className("cp"))) {
-			sleep(2000);
-			if ("其它".equals(we.getText())) {
-				element = we;
-				break;
-			}
-		}
-		sleep(2000);
+		// for (WebElement we : element.findElements(By.className("cp"))) {
+		// sleep(2000);
+		// if ("其它".equals(we.getText())) {
+		// element = we;
+		// break;
+		// }
+		// }
+		ThreadSleep.sleep(2000);
+		element = element.findElement(By.linkText("女装"));
 		element.click();
 
 		driver.navigate()
 				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=5495008");
-		sleep(2000);
+		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 100; ++i) {
 			System.out.println(i);
 			pushSingleProduct(element, driver);
@@ -110,14 +77,14 @@ public class Selenium2Example {
 	}
 
 	private static void pushSingleProduct(WebElement element, WebDriver driver) {
-		sleep(5000);
+		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".search.fr.pr"));
 		WebElement subElement = element.findElement(By.tagName("input"));
 		subElement.sendKeys("九舞");
 		subElement = element.findElement(By.tagName("a"));
 		subElement.click();
 
-		sleep(5000);
+		ThreadSleep.sleep(5000);
 		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
 				return d.findElement(By.className("creation-items"));
@@ -131,7 +98,7 @@ public class Selenium2Example {
 		// thList.get(1).click();
 		// thList.get(1).click();
 
-		sleep(5000);
+		ThreadSleep.sleep(5000);
 		element = element.findElement(By.tagName("tbody"));
 		List<WebElement> trList = element.findElements(By.tagName("tr"));
 		trList.get(0).click();
@@ -146,7 +113,7 @@ public class Selenium2Example {
 		element.clear();
 		element.sendKeys(name);
 
-		sleep(2000);
+		ThreadSleep.sleep(2000);
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
 		element.click();
 
@@ -156,10 +123,10 @@ public class Selenium2Example {
 			}
 		});
 		element = element.findElement(By.tagName("a"));
-		sleep(5000);
+		ThreadSleep.sleep(5000);
 		element.click();
 
-		sleep(5000);
+		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
 		element.click();
 
@@ -169,14 +136,6 @@ public class Selenium2Example {
 			}
 		});
 		element.click();
-	}
-
-	private static void sleep(int seconds) {
-		try {
-			Thread.sleep(seconds);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private static String convertStringArray(String inputStr, int iInputLenth) {
