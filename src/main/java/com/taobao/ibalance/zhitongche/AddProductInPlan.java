@@ -54,19 +54,12 @@ public class AddProductInPlan {
 			}
 		}
 
-		// for (WebElement we : element.findElements(By.className("cp"))) {
-		// sleep(2000);
-		// if ("其它".equals(we.getText())) {
-		// element = we;
-		// break;
-		// }
-		// }
 		ThreadSleep.sleep(2000);
 		element = element.findElement(By.linkText("女装"));
 		element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=5495008");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=5498773");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 100; ++i) {
 			System.out.println(i);
@@ -80,7 +73,7 @@ public class AddProductInPlan {
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".search.fr.pr"));
 		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("九舞");
+		subElement.sendKeys("梦可");
 		subElement = element.findElement(By.tagName("a"));
 		subElement.click();
 
