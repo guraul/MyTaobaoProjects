@@ -55,11 +55,11 @@ public class AddProductInPlan {
 		}
 
 		ThreadSleep.sleep(2000);
-		element = element.findElement(By.linkText("女装"));
+		element = element.findElement(By.linkText("推广"));
 		element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=5498773");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=2855728");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 100; ++i) {
 			System.out.println(i);
@@ -70,19 +70,23 @@ public class AddProductInPlan {
 	}
 
 	private static void pushSingleProduct(WebElement element, WebDriver driver) {
-		ThreadSleep.sleep(5000);
-		element = driver.findElement(By.cssSelector(".search.fr.pr"));
-		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("梦可");
-		subElement = element.findElement(By.tagName("a"));
-		subElement.click();
+		// ThreadSleep.sleep(5000);
+		// element = driver.findElement(By.cssSelector(".search.fr.pr"));
+		// WebElement subElement = element.findElement(By.tagName("input"));
+		// subElement.sendKeys("碧玉罗香");
+		// subElement = element.findElement(By.tagName("a"));
+		// subElement.click();
 
-		ThreadSleep.sleep(5000);
+		ThreadSleep.sleep(1000);
 		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
 				return d.findElement(By.className("creation-items"));
 			}
 		});
+		
+		 WebElement ele = element.findElement(By.cssSelector(".btn-group.fl"));
+		 ele = ele.findElement(By.cssSelector(".btn.btn-size25.fl"));
+		 ele.click();
 
 		element = element.findElement(By.className("bp-table"));
 
@@ -102,7 +106,10 @@ public class AddProductInPlan {
 			}
 		});
 
-		String name = convertStringArray(element.getAttribute("value").trim(), 20);
+		String name = element.getAttribute("value").trim();
+		name = name.replace("碧玉罗香", "").replace("苏尼达", "").replace("旋美", "").replace("诚品", "").replace("苏城上品", "")
+				.replace("九舞", "").replace("梦可", "").replace("稻草朵", "");
+		name = convertStringArray(name, 20);
 		element.clear();
 		element.sendKeys(name);
 
