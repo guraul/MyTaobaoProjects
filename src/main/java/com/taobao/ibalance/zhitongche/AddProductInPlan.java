@@ -2,7 +2,6 @@ package com.taobao.ibalance.zhitongche;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,49 +18,55 @@ public class AddProductInPlan {
 	public static void main(String[] args) {
 
 		WebDriver driver = GetDriver.getChromeDriver();
-		Login.loginTaobao(driver);
+		String url = "https://login.taobao.com/member/login.jhtml";
+		Login.loginTaobao(driver, url);
 
-		driver.navigate().to("http://zhitongche.taobao.com");
-		String oriWin = driver.getWindowHandle();
 		ThreadSleep.sleep(2000);
-
-		driver.switchTo().frame("login_iframe");
+		driver.navigate().to("https://subway.simba.taobao.com");
 		ThreadSleep.sleep(2000);
-		WebElement element = driver.findElement(By.id("btn"));
+		WebElement element = driver.findElement(By.className("dialog-ext-close"));
 		element.click();
+
+		// String oriWin = driver.getWindowHandle();
+		// ThreadSleep.sleep(2000);
+		//
+		// driver.switchTo().frame("login_iframe");
+		// ThreadSleep.sleep(2000);
+		// WebElement element = driver.findElement(By.id("btn"));
+		// element.click();
+		// ThreadSleep.sleep(2000);
+		//
+		// Set<String> handles = driver.getWindowHandles();
+		// for (String handle : handles) {
+		// if (oriWin.equals(handle)) {
+		// continue;
+		// } else {
+		// driver.switchTo().window(handle);
+		// }
+		// }
+		//
+		// for (WebElement we : driver.findElements(By.tagName("vframe"))) {
+		// if (we.getAttribute("id").equals("magix_vf_main")) {
+		// element = we;
+		// break;
+		// }
+		// }
+		//
+		// for (WebElement we : element.findElements(By.tagName("vframe"))) {
+		// if (we.getAttribute("id").equals("magix_vf_65530")) {
+		// element = we;
+		// break;
+		// }
+		// }
+		//
 		ThreadSleep.sleep(2000);
-
-		Set<String> handles = driver.getWindowHandles();
-		for (String handle : handles) {
-			if (oriWin.equals(handle)) {
-				continue;
-			} else {
-				driver.switchTo().window(handle);
-			}
-		}
-
-		for (WebElement we : driver.findElements(By.tagName("vframe"))) {
-			if (we.getAttribute("id").equals("magix_vf_main")) {
-				element = we;
-				break;
-			}
-		}
-
-		for (WebElement we : element.findElements(By.tagName("vframe"))) {
-			if (we.getAttribute("id").equals("magix_vf_65530")) {
-				element = we;
-				break;
-			}
-		}
-
-		ThreadSleep.sleep(2000);
-		element = element.findElement(By.linkText("推广"));
+		element = driver.findElement(By.linkText("半身裙"));
 		element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=2855728");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19749353");
 		ThreadSleep.sleep(2000);
-		for (int i = 0; i < 100; ++i) {
+		for (int i = 0; i < 1000; ++i) {
 			System.out.println(i);
 			pushSingleProduct(element, driver);
 		}
@@ -70,12 +75,12 @@ public class AddProductInPlan {
 	}
 
 	private static void pushSingleProduct(WebElement element, WebDriver driver) {
-		// ThreadSleep.sleep(5000);
-		// element = driver.findElement(By.cssSelector(".search.fr.pr"));
-		// WebElement subElement = element.findElement(By.tagName("input"));
-		// subElement.sendKeys("碧玉罗香");
-		// subElement = element.findElement(By.tagName("a"));
-		// subElement.click();
+		ThreadSleep.sleep(5000);
+		element = driver.findElement(By.cssSelector(".search.fr.pr"));
+		WebElement subElement = element.findElement(By.tagName("input"));
+		subElement.sendKeys("碧玉罗香");
+		subElement = element.findElement(By.tagName("a"));
+		subElement.click();
 
 		ThreadSleep.sleep(1000);
 		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
@@ -83,10 +88,11 @@ public class AddProductInPlan {
 				return d.findElement(By.className("creation-items"));
 			}
 		});
-		
-		 WebElement ele = element.findElement(By.cssSelector(".btn-group.fl"));
-		 ele = ele.findElement(By.cssSelector(".btn.btn-size25.fl"));
-		 ele.click();
+
+		// WebElement ele =
+		// element.findElement(By.cssSelector(".btn-group.fl"));
+		// ele = ele.findElement(By.cssSelector(".btn.btn-size25.fl"));
+		// ele.click();
 
 		element = element.findElement(By.className("bp-table"));
 

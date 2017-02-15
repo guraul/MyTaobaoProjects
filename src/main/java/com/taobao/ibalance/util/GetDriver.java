@@ -21,7 +21,7 @@ public class GetDriver {
 	public static WebDriver getPhantomJSDriver() {
 		DesiredCapabilities dcaps = new DesiredCapabilities();
 		dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-				"/Users/gubin/project/workspace/seleniumProject/MySel20Proj/dirver/phantomjs-2.1.1-macosx/bin/phantomjs");
+				"/Users/gubin/project/workspace/MyTaobaoProjects/driver/phantomjs-2.1.1-macosx/bin/phantomjs");
 		WebDriver driver = new PhantomJSDriver(dcaps);
 
 		return driver;
