@@ -40,7 +40,7 @@ public class AddTaoBaoKeEvent {
 
 		element = driver.findElement(By.name("TPL_password"));
 		element.clear();
-		element.sendKeys("raul20161003@tb");
+		element.sendKeys("");
 		ThreadSleep.sleep(1000);
 
 		element = driver.findElement(By.id("J_SubmitStatic"));
