@@ -40,7 +40,7 @@ public class AddTaoBaoKeEvent {
 
 		element = driver.findElement(By.name("TPL_password"));
 		element.clear();
-		element.sendKeys("");
+		element.sendKeys("raul20161003@tb");
 		ThreadSleep.sleep(1000);
 
 		element = driver.findElement(By.id("J_SubmitStatic"));
@@ -54,6 +54,10 @@ public class AddTaoBaoKeEvent {
 		ThreadSleep.sleep(3000);
 		driver.navigate().to("http://ad.alimama.com/myunion.htm#!/promotion/magpie_bridge/active/");
 
+		element = driver.findElement(By.className("message-panel"));
+		element = element.findElement(By.linkText("隐藏"));
+		element.click();
+
 		element = new WebDriverWait(driver, 5).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
 				return d.findElement(By.id("magix_vf_items_query"));
@@ -61,40 +65,33 @@ public class AddTaoBaoKeEvent {
 		});
 
 		ThreadSleep.sleep(3000);
-		element = element.findElement(By.linkText("10%-15%"));
+		element = element.findElement(By.linkText("15%-20%"));
 		element.click();
 
-		ThreadSleep.sleep(1000);
-		List<WebElement> elements = driver.findElements(By.linkText("查看活动详情>>"));
-		String oriWin = driver.getWindowHandle();
-		System.out.println("oriWin" + ":" + oriWin);
-		for (int i = 0; i < 2; i++) {
-			WebElement we = elements.get(i);
-			we.click();
-			System.out.println(i + ":" + driver.getWindowHandle());
-			Set<String> handles = driver.getWindowHandles();
-			ThreadSleep.sleep(2000);
-			if (i != 0) {
-				for (String handle : handles) {
-					if (oriWin.equals(handle)) {
-						continue;
-					} else {
-						driver.switchTo().window(handle);
-						we = driver.findElement(By.cssSelector(".path.current"));
-						break;
-					}
-				}
-			}
+		ThreadSleep.sleep(3000);
+		element = driver.findElement(By.className("table-container"));
+		element.findElement(By.cssSelector(".checkbox.mr8")).click();
 
-			for (String handle : handles) {
-				if (oriWin.equals(handle)) {
-					continue;
-				} else {
-					driver.switchTo().window(handle);
-					driver.close();
-				}
-			}
-			driver.switchTo().window(oriWin);
+		List<WebElement> elements = element.findElements(By.tagName("table"));
+		element = elements.get(1);
+		elements = element.findElements(By.tagName("tr"));
+
+		for (WebElement we : elements) {
+			List<WebElement> wes = we.findElements(By.tagName("td"));
+			element = wes.get(8).findElement(By.linkText("立即报名"));
+			element.click();
+
+			ThreadSleep.sleep(3000);
+			element = driver.findElement(By.className("dialog-contentbox")).findElement(By.id("vf-dialog"))
+					.findElements(By.tagName("p")).get(1).findElement(By.linkText("知道了"));
+			element.click();
+			
+			element = driver.findElement(By.cssSelector(".normal-form.featured"));
+			element = element.findElement(By.className("featured-cnt"));
+			wes= element.findElements(By.tagName("li"));
+			System.out.println(wes.size());
+			break;
+
 		}
 
 	}
