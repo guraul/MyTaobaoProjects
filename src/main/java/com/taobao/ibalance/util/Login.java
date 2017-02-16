@@ -8,12 +8,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
 
-	public static void loginTaobao(WebDriver driver) {
+	public static void loginTaobao(WebDriver driver,String url) {
 
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 
-		driver.get("https://login.taobao.com/member/login.jhtml");
+		driver.get(url);
 		ThreadSleep.sleep(5000);
 
 		WebElement element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
