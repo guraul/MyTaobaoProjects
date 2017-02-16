@@ -6,9 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,14 +15,8 @@ public class GetStockHistoryData_163 {
 
 	public static void main(String[] args) {
 
-		DesiredCapabilities dcaps = new DesiredCapabilities();
-		dcaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-				"/Users/gubin/Downloads/selenium/phantomjs-2.1.1-macosx/bin/phantomjs");
-		WebDriver driver = new PhantomJSDriver(dcaps);
-
-		// System.setProperty("webdriver.chrome.driver",
-		// "/Users/gubin/project/workspace/seleniumProject/MySel20Proj/dirver/chromedriver");
-		// WebDriver driver = new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver", "/project/git/MyTaobaoProjects/driver/chromedriver");
+		WebDriver driver = new ChromeDriver();
 
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
@@ -83,9 +75,11 @@ public class GetStockHistoryData_163 {
 					List<WebElement> rows = element.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
 					for (WebElement row : rows) {
 						List<WebElement> cells = row.findElements(By.tagName("td"));
+						String rowString = "";
 						for (WebElement cell : cells) {
-							System.out.println(cell.getText());
+							rowString = rowString + cell.getText() + ",";
 						}
+						System.out.println(rowString);
 					}
 				} else {
 					continue;
@@ -94,7 +88,6 @@ public class GetStockHistoryData_163 {
 		}
 
 		driver.quit();
-
 	}
 
 	private static boolean isContentAppeared(WebElement element, String content) {
