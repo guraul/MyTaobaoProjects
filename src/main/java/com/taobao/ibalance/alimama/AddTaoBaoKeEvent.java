@@ -36,11 +36,11 @@ public class AddTaoBaoKeEvent {
 			}
 		});
 		element.clear();
-		element.sendKeys("");
+		element.sendKeys("guraul");
 
 		element = driver.findElement(By.name("TPL_password"));
 		element.clear();
-		element.sendKeys("");
+		element.sendKeys("figo20170215@mall");
 		ThreadSleep.sleep(1000);
 
 		element = driver.findElement(By.id("J_SubmitStatic"));
@@ -75,28 +75,51 @@ public class AddTaoBaoKeEvent {
 
 		for (WebElement we : elements) {
 			List<WebElement> wes = we.findElements(By.tagName("td"));
-			element = wes.get(8).findElement(By.linkText("立即报名"));
-			element.click();
+			if ("已报名过此活动".equals(wes.get(8).findElement(By.cssSelector(".color-bd.mt5")).getText())) {
+				continue;
+			}
+			wes.get(8).findElement(By.linkText("立即报名")).click();
 
 			ThreadSleep.sleep(3000);
-			element = driver.findElement(By.className("dialog-contentbox")).findElement(By.id("vf-dialog"))
-					.findElements(By.tagName("p")).get(1).findElement(By.linkText("知道了"));
-			element.click();
+			driver.findElement(By.className("dialog-contentbox")).findElement(By.id("vf-dialog"))
+					.findElements(By.tagName("p")).get(1).findElement(By.linkText("知道了")).click();
 
 			ThreadSleep.sleep(3000);
 			gotoNewWin(oriWin, driver);
-			element = driver.findElement(By.id("body")).findElement(By.id("inmain"));
-			element = element.findElement(By.id("vf-main")).findElement(By.xpath("//*[@class='normal-form featured']"));
+			wes = driver.findElement(By.id("body")).findElement(By.id("inmain")).findElement(By.id("vf-main"))
+					.findElement(By.className("step-wrap")).findElement(By.id("vf-step-1"))
+					.findElement(By.className("featured-cnt")).findElements(By.className("item"));
 
-			// .findElement(By.className("step-wrap"))
-			// .findElement(By.id("vf-step-1")).findElement(By.id("brix_447")).findElement(By.id("featured"))
-			// .findElement(By.className("featured-source"));
-			// element =
-			// element.findElement(By.cssSelector(".normal-form.featured"));
-			// wes= element.findElements(By.tagName("li"));
-			// System.out.println(wes.size());
-			break;
+			for (WebElement we1 : wes) {
+				we1.findElement(By.tagName("img")).click();
+			}
 
+			driver.findElement(By.linkText("下一步")).click();
+			ThreadSleep.sleep(3000);
+			element = driver.findElement(By.id("vf-main")).findElement(By.className("step-wrap"))
+					.findElement(By.id("vf-step-2")).findElement(By.className("table-container"));
+
+			double min = Double.valueOf(element.findElement(By.id("commission_tables_body"))
+					.findElements(By.tagName("tr")).get(0)
+					.findElement(By.cssSelector(".input.magpie_bridge_commission_input")).getAttribute("data-minrate"));
+			if (min <= 20) {
+				element.findElement(By.className("table-head-fix")).findElement(By.id("commission_tables_head"))
+						.findElement(By.className("check-trigger")).click();
+				element.findElement(By.className("table-head-fix")).findElement(By.id("J_commission_editSome")).click();
+				ThreadSleep.sleep(3000);
+				element.findElement(By.className("table-head-fix")).findElement(By.id("J_set_all_commission"))
+						.sendKeys("20");
+				element.findElement(By.className("table-head-fix")).findElement(By.linkText("确定")).click();
+				element = driver.findElement(By.id("vf-main")).findElement(By.className("step-wrap"))
+						.findElement(By.id("vf-step-2"))
+						.findElement(By.cssSelector(".form-line.line-submit.clearfix.mt40"));
+				element.findElement(By.linkText("完成")).click();
+				driver.findElement(By.id("vf-main")).findElement(By.className("step-wrap"))
+						.findElement(By.id("vf-step-3")).findElement(By.linkText("再报名一个")).click();
+				break;
+			} else {
+				continue;
+			}
 		}
 
 	}
@@ -107,6 +130,7 @@ public class AddTaoBaoKeEvent {
 			if (oriWin.equals(handle)) {
 				continue;
 			} else {
+				driver.close();
 				driver.switchTo().window(handle);
 			}
 		}

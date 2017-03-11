@@ -21,50 +21,18 @@ public class AddProductInPlan {
 		String url = "https://login.taobao.com/member/login.jhtml";
 		Login.loginTaobao(driver, url);
 
-		ThreadSleep.sleep(2000);
+		ThreadSleep.sleep(30000);
 		driver.navigate().to("https://subway.simba.taobao.com");
-		ThreadSleep.sleep(2000);
+		ThreadSleep.sleep(5000);
 		WebElement element = driver.findElement(By.className("dialog-ext-close"));
 		element.click();
 
-		// String oriWin = driver.getWindowHandle();
-		// ThreadSleep.sleep(2000);
-		//
-		// driver.switchTo().frame("login_iframe");
-		// ThreadSleep.sleep(2000);
-		// WebElement element = driver.findElement(By.id("btn"));
-		// element.click();
-		// ThreadSleep.sleep(2000);
-		//
-		// Set<String> handles = driver.getWindowHandles();
-		// for (String handle : handles) {
-		// if (oriWin.equals(handle)) {
-		// continue;
-		// } else {
-		// driver.switchTo().window(handle);
-		// }
-		// }
-		//
-		// for (WebElement we : driver.findElements(By.tagName("vframe"))) {
-		// if (we.getAttribute("id").equals("magix_vf_main")) {
-		// element = we;
-		// break;
-		// }
-		// }
-		//
-		// for (WebElement we : element.findElements(By.tagName("vframe"))) {
-		// if (we.getAttribute("id").equals("magix_vf_65530")) {
-		// element = we;
-		// break;
-		// }
-		// }
-		//
 		ThreadSleep.sleep(2000);
-		element = driver.findElement(By.linkText("半身裙"));
+		element = driver.findElement(By.linkText("舞衣"));
 		element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19749353");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19486324");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 1000; ++i) {
 			System.out.println(i);
@@ -78,7 +46,7 @@ public class AddProductInPlan {
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".search.fr.pr"));
 		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("碧玉罗香");
+		subElement.sendKeys("旋美诚品");
 		subElement = element.findElement(By.tagName("a"));
 		subElement.click();
 
