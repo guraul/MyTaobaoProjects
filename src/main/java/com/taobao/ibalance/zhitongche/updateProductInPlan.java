@@ -18,7 +18,7 @@ public class updateProductInPlan {
 		WebDriver driver = GetDriver.getChromeDriver();
 		String url = "https://login.taobao.com/member/login.jhtml";
 		Login.loginTaobao(driver, url);
-		// 
+		//
 		ThreadSleep.sleep(20000);
 		driver.navigate().to("https://subway.simba.taobao.com");
 		ThreadSleep.sleep(3000);
@@ -30,13 +30,13 @@ public class updateProductInPlan {
 		// element.click();
 
 		List<String> paths = new ArrayList<>();
-		for (int i = 1; i <= 4; i++) {
-			// driver.navigate()
-			// .to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19749353&page="
-			// + i);
+		for (int i = 1; i <= 6; i++) {
 			driver.navigate()
-					.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19486324&page="
+					.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19749353&page="
 							+ i);
+			// driver.navigate()
+			// .to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19486324&page="
+			// + i);
 
 			ThreadSleep.sleep(6000);
 			element = driver.findElement(By.id("J_magix_vf_65522_tbody"));
@@ -48,13 +48,13 @@ public class updateProductInPlan {
 			}
 		}
 
-		for (int i = 136; i < paths.size(); i++) {
+		for (int i = 1060; i < paths.size(); i++) {
 			System.out.println("this row's number:" + i);
 			driver.navigate().to(paths.get(i));
 
 			ThreadSleep.sleep(5000);
-			String keys = driver.findElement(By.id("J_magix_vf_main_bidwordsNum")).getText();
-			if (!keys.equals("200")) {
+			int keys = Integer.valueOf(driver.findElement(By.id("J_magix_vf_main_bidwordsNum")).getText());
+			if (keys < 180) {
 				driver.findElement(By.cssSelector(".table-top-pannel.clearfix")).findElement(By.className("fl"))
 						.findElements(By.tagName("span")).get(0).click();
 				ThreadSleep.sleep(5000);

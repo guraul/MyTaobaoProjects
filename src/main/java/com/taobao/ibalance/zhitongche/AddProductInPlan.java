@@ -27,15 +27,15 @@ public class AddProductInPlan {
 		WebElement element = driver.findElement(By.className("dialog-ext-close"));
 		element.click();
 
-		ThreadSleep.sleep(2000);
-		element = driver.findElement(By.linkText("舞衣"));
-		element.click();
+		// ThreadSleep.sleep(2000);
+		// element = driver.findElement(By.linkText("女装"));
+		// element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19486324");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19749353");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 1000; ++i) {
-			System.out.println(i);
+			System.out.println("word completed:" + i);
 			pushSingleProduct(element, driver);
 		}
 
@@ -46,7 +46,7 @@ public class AddProductInPlan {
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".search.fr.pr"));
 		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("旋美诚品");
+		subElement.sendKeys("碧玉罗香");
 		subElement = element.findElement(By.tagName("a"));
 		subElement.click();
 
@@ -91,14 +91,14 @@ public class AddProductInPlan {
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
 		element.click();
 
-		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
-			public WebElement apply(WebDriver d) {
-				return d.findElement(By.cssSelector(".pagination.sel-area"));
-			}
-		});
-		element = element.findElement(By.tagName("a"));
-		ThreadSleep.sleep(5000);
-		element.click();
+//		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+//			public WebElement apply(WebDriver d) {
+//				return d.findElement(By.cssSelector(".pagination.sel-area"));
+//			}
+//		});
+//		element = element.findElement(By.tagName("a"));
+//		ThreadSleep.sleep(5000);
+//		element.click();
 
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
