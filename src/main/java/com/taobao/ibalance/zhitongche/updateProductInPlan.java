@@ -26,8 +26,6 @@ public class updateProductInPlan {
 		element.click();
 
 		ThreadSleep.sleep(2000);
-		// element = driver.findElement(By.linkText("女装"));
-		// element.click();
 
 		List<String> paths = new ArrayList<>();
 		for (int i = 1; i <= 6; i++) {
@@ -48,7 +46,7 @@ public class updateProductInPlan {
 			}
 		}
 
-		for (int i = 1060; i < paths.size(); i++) {
+		for (int i = 850; i < paths.size(); i++) {
 			System.out.println("this row's number:" + i);
 			driver.navigate().to(paths.get(i));
 
