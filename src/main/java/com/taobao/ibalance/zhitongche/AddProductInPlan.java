@@ -32,7 +32,7 @@ public class AddProductInPlan {
 		// element.click();
 
 		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=19749353");
+				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=2855728");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 1000; ++i) {
 			System.out.println("word completed:" + i);
@@ -46,7 +46,7 @@ public class AddProductInPlan {
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".search.fr.pr"));
 		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("碧玉罗香");
+		subElement.sendKeys("XZ");
 		subElement = element.findElement(By.tagName("a"));
 		subElement.click();
 
@@ -57,17 +57,7 @@ public class AddProductInPlan {
 			}
 		});
 
-		// WebElement ele =
-		// element.findElement(By.cssSelector(".btn-group.fl"));
-		// ele = ele.findElement(By.cssSelector(".btn.btn-size25.fl"));
-		// ele.click();
-
 		element = element.findElement(By.className("bp-table"));
-
-		// subElement = element.findElement(By.tagName("thead"));
-		// List<WebElement> thList = subElement.findElements(By.tagName("th"));
-		// thList.get(1).click();
-		// thList.get(1).click();
 
 		ThreadSleep.sleep(5000);
 		element = element.findElement(By.tagName("tbody"));
@@ -82,7 +72,7 @@ public class AddProductInPlan {
 
 		String name = element.getAttribute("value").trim();
 		name = name.replace("碧玉罗香", "").replace("苏尼达", "").replace("旋美", "").replace("诚品", "").replace("苏城上品", "")
-				.replace("九舞", "").replace("梦可", "").replace("稻草朵", "");
+				.replace("九舞", "").replace("梦可", "").replace("XZ", "");
 		name = convertStringArray(name, 20);
 		element.clear();
 		element.sendKeys(name);
@@ -91,14 +81,20 @@ public class AddProductInPlan {
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
 		element.click();
 
-//		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
-//			public WebElement apply(WebDriver d) {
-//				return d.findElement(By.cssSelector(".pagination.sel-area"));
-//			}
-//		});
-//		element = element.findElement(By.tagName("a"));
-//		ThreadSleep.sleep(5000);
-//		element.click();
+		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.cssSelector(".pagination.sel-area"));
+			}
+		});
+		element = element.findElement(By.tagName("a"));
+		ThreadSleep.sleep(5000);
+		element.click();
+
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.cssSelector(".fl.pr.error-right"));
+			}
+		}).sendKeys("5");
 
 		ThreadSleep.sleep(5000);
 		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));

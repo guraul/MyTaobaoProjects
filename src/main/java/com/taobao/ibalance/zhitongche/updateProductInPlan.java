@@ -28,13 +28,10 @@ public class updateProductInPlan {
 		ThreadSleep.sleep(2000);
 
 		List<String> paths = new ArrayList<>();
-		for (int i = 1; i <= 6; i++) {
+		for (int i = 1; i <= 4; i++) {
 			driver.navigate()
-					.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19749353&page="
+					.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19486324&page="
 							+ i);
-			// driver.navigate()
-			// .to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19486324&page="
-			// + i);
 
 			ThreadSleep.sleep(6000);
 			element = driver.findElement(By.id("J_magix_vf_65522_tbody"));
@@ -46,7 +43,22 @@ public class updateProductInPlan {
 			}
 		}
 
-		for (int i = 850; i < paths.size(); i++) {
+		for (int i = 1; i <= 7; i++) {
+			driver.navigate()
+					.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/index?type=item&campaignId=19749353&page="
+							+ i);
+
+			ThreadSleep.sleep(6000);
+			element = driver.findElement(By.id("J_magix_vf_65514_tbody"));
+			ThreadSleep.sleep(2000);
+			List<WebElement> wes = element.findElements(By.className("photo"));
+			ThreadSleep.sleep(5000);
+			for (WebElement we : wes) {
+				paths.add(we.findElement(By.className("img60")).getAttribute("href"));
+			}
+		}
+
+		for (int i = 0; i < paths.size(); i++) {
 			System.out.println("this row's number:" + i);
 			driver.navigate().to(paths.get(i));
 
