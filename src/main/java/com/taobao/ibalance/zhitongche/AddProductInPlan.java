@@ -1,7 +1,6 @@
 package com.taobao.ibalance.zhitongche;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,89 +22,106 @@ public class AddProductInPlan {
 
 		ThreadSleep.sleep(30000);
 		driver.navigate().to("https://subway.simba.taobao.com");
-		ThreadSleep.sleep(5000);
-		WebElement element = driver.findElement(By.className("dialog-ext-close"));
-		element.click();
 
-		// ThreadSleep.sleep(2000);
-		// element = driver.findElement(By.linkText("女装"));
-		// element.click();
+		// new WebDriverWait(driver, 20).until(new
+		// ExpectedCondition<WebElement>() {
+		// public WebElement apply(WebDriver d) {
+		// return d.findElement(By.className("dialog-ext-close"));
+		// }
+		// }).click();
 
-		driver.navigate()
-				.to("https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add?campaignId=2855728");
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.linkText("半身裙"));
+			}
+		}).click();
+
+		driver.navigate().to(
+				"https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add-suggest2?campaignId=19749353");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 1000; ++i) {
 			System.out.println("word completed:" + i);
-			pushSingleProduct(element, driver);
+			pushSingleProduct(driver);
 		}
 
 		driver.quit();
 	}
 
-	private static void pushSingleProduct(WebElement element, WebDriver driver) {
-		ThreadSleep.sleep(5000);
-		element = driver.findElement(By.cssSelector(".search.fr.pr"));
-		WebElement subElement = element.findElement(By.tagName("input"));
-		subElement.sendKeys("XZ");
-		subElement = element.findElement(By.tagName("a"));
-		subElement.click();
+	private static void pushSingleProduct(WebDriver driver) {
 
-		ThreadSleep.sleep(1000);
-		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
-				return d.findElement(By.className("creation-items"));
+				return d.findElement(By.cssSelector(".search.fr.pr")).findElement(By.tagName("input"));
 			}
-		});
+		}).sendKeys("碧玉罗香");
 
-		element = element.findElement(By.className("bp-table"));
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.cssSelector(".search.fr.pr")).findElement(By.tagName("a"));
+			}
+		}).click();
 
 		ThreadSleep.sleep(5000);
-		element = element.findElement(By.tagName("tbody"));
-		List<WebElement> trList = element.findElements(By.tagName("tr"));
-		trList.get(0).click();
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.cssSelector(".bp-table.table-body")).findElement(By.tagName("tbody"));
+			}
+		}).findElements(By.tagName("tr")).get(0).click();
 
-		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+		ThreadSleep.sleep(5000);
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElements(By.className("target")).get(2);
+			}
+		}).click();
+
+		WebElement element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
 				return d.findElement(By.id("J_J_vframe_template_title_0"));
 			}
 		});
 
-		String name = element.getAttribute("value").trim();
-		name = name.replace("碧玉罗香", "").replace("苏尼达", "").replace("旋美", "").replace("诚品", "").replace("苏城上品", "")
-				.replace("九舞", "").replace("梦可", "").replace("XZ", "");
+		String name = element.getAttribute("value").trim().replace("碧玉罗香", "").replace("苏尼达", "").replace("旋美", "")
+				.replace("诚品", "").replace("苏城上品", "").replace("九舞", "").replace("梦可", "").replace("XZ", "");
 		name = convertStringArray(name, 20);
 		element.clear();
 		element.sendKeys(name);
 
 		ThreadSleep.sleep(2000);
-		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
-		element.click();
-
-		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
-				return d.findElement(By.cssSelector(".pagination.sel-area"));
+				return d.findElement(By.cssSelector(".mt20.mb30"));
 			}
-		});
-		element = element.findElement(By.tagName("a"));
-		ThreadSleep.sleep(5000);
-		element.click();
+		}).click();
+
+		// element =
+		// driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
+		// element.click();
+
+		ThreadSleep.sleep(2000);
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.cssSelector(".pagination.sel-area")).findElement(By.tagName("a"));
+			}
+		}).click();
 
 		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
-				return d.findElement(By.cssSelector(".fl.pr.error-right"));
+				return d.findElement(By.linkText("确定"));
 			}
-		}).sendKeys("5");
+		}).click();
 
-		ThreadSleep.sleep(5000);
-		element = driver.findElement(By.cssSelector(".btn.btn-orange.btn-size30"));
-		element.click();
-
-		element = new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
-				return d.findElement(By.linkText("推广宝贝"));
+				return d.findElement(By.className("finish-popularize")).findElement(By.tagName("button"));
 			}
-		});
-		element.click();
+		}).click();
+
+		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
+			public WebElement apply(WebDriver d) {
+				return d.findElement(By.linkText("新建宝贝推广"));
+			}
+		}).click();
 	}
 
 	private static String convertStringArray(String inputStr, int iInputLenth) {
