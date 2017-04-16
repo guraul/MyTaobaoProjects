@@ -32,12 +32,12 @@ public class AddProductInPlan {
 
 		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
-				return d.findElement(By.linkText("半身裙"));
+				return d.findElement(By.linkText("帆布鞋"));
 			}
 		}).click();
 
 		driver.navigate().to(
-				"https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add-suggest2?campaignId=19749353");
+				"https://subway.simba.taobao.com/#!/campaigns/standards/adgroups/items/add-suggest2?campaignId=2855728");
 		ThreadSleep.sleep(2000);
 		for (int i = 0; i < 1000; ++i) {
 			System.out.println("word completed:" + i);
@@ -53,7 +53,7 @@ public class AddProductInPlan {
 			public WebElement apply(WebDriver d) {
 				return d.findElement(By.cssSelector(".search.fr.pr")).findElement(By.tagName("input"));
 			}
-		}).sendKeys("碧玉罗香");
+		}).sendKeys("GH");
 
 		new WebDriverWait(driver, 20).until(new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver d) {
@@ -82,7 +82,7 @@ public class AddProductInPlan {
 		});
 
 		String name = element.getAttribute("value").trim().replace("碧玉罗香", "").replace("苏尼达", "").replace("旋美", "")
-				.replace("诚品", "").replace("苏城上品", "").replace("九舞", "").replace("梦可", "").replace("XZ", "");
+				.replace("诚品", "").replace("GH", "").replace("九舞", "").replace("梦可", "").replace("XZ", "");
 		name = convertStringArray(name, 20);
 		element.clear();
 		element.sendKeys(name);
